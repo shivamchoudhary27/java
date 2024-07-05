@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{common/header :: head}"></div>
+
+<body>
+	<div class="d-flex flex-column min-vh-100">
+		<div th:replace="~{common/header :: header}"></div>
+		<main class="cus-drawers">
+			<div class="container">
+
+				<div class="cus-profile mt-4 mb-4">
+		
+					<div class="alert alert-primary" role="alert" th:if="${updateSuccess}">Update successful!</div>
+					<form th:action="@{/user/profile}" th:object="${profile}" method="post">
+						<div>
+							<input class="form-control"  id="adminid" type="hidden" th:field="*{adminid}"
+									required>
+						</div>
+						<div class="row mb-3">
+							<div class="col-sm-3 d-flex align-items-center">
+								<p class="select-box-label">Name</p>
+							</div>
+							<div class="col-sm-9">
+								<input class="form-control" placeholder="Name" id="name" type="text" th:field="*{name}"
+									required>
+							</div>
+						</div>
+						<div class="row mb-3">
+							<div class="col-sm-3 d-flex align-items-center">
+								<p class="select-box-label">Username</p>
+							</div>
+							<div class="col-sm-9">
+								<input class="form-control" placeholder="Username" id="username" type="text"
+									th:field="*{username}" required>
+							</div>
+						</div>
+						<div class="row mb-3">
+							<div class="col-sm-3 d-flex align-items-center">
+								<p class="select-box-label">Password</p>
+							</div>
+							<div class="col-sm-9">
+								<input class="form-control mb-0" placeholder="Password" id="password" th:field="*{password}" type="password">
+							</div>
+						</div>
+						<div class="row mb-3">
+							<div class="col-sm-3 d-flex align-items-center">
+								<p class="select-box-label">Email ID</p>
+							</div>
+							<div class="col-sm-9">
+								<input class="form-control" placeholder="Email ID" id="email" type="email"
+									th:field="*{email}" required>
+							</div>
+						</div>
+						<div class="row mb-3">
+							<div class="col-sm-5">
+
+							</div>
+							<div class="col-sm-4">
+								<div class="buttons text-right">
+									<a class="btn btn-primary" href="/" role="button">Cancel</a>
+								</div>
+							</div>
+							<div class="col-sm-3">
+								<div class="buttons text-left">
+									<button type="submit" class="btn btn-danger">Save</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</main>
+
+		<footer class="mt-auto">
+			<div th:include="common/footer :: footer"></div>
+		</footer>
+
+	</div>
+
+
+</body>
+
+</html>

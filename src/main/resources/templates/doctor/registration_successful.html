@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{common/header :: head}"></div>
+
+<body>
+	
+		<div th:replace="~{common/header :: header}"></div>
+
+	<div align="center">
+		<h2>Doctor Registration Successful!</h2>
+	</div>
+
+	<script>
+		setTimeout(function() {
+			window.location.href = "/doctor/registration";
+		}, 2000); // Redirect after 5 seconds
+	</script>
+	<div class="fixed"></div>
+	<div th:replace="~{common/footer :: footer}"></div>
+	
+</body>
+
+</html>

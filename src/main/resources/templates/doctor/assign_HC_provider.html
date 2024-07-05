@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<div th:replace="~{common/header :: head}">
+</div>
+
+<body>
+	<div class="d-flex flex-column min-vh-100">
+		<div th:replace="~{common/header :: header}"></div>
+		<main class="cus-drawers">
+			<div class="main-content mt-4 mb-4">
+				<div class="container">
+					<div class="search-box">
+						<input type="text" id="search_input_all" onkeyup="FilterkeyWord_all_table()"
+							placeholder="Search.." class="form-control">
+						<i class="fa fa-search search-icon" aria-hidden="true"></i>
+					</div>
+					<div class="table-responsive cus-table">
+						<table class="table table-dark-header table-striped" id="table-id">
+							<thead class="">
+								<tr>
+									<th>Doctor Name</th>
+									<th>Email ID</th>
+									<th>Experience</th>
+									<th>Status</th>
+									<th>Assign</th>
+								</tr>
+							</thead>
+							<tbody id="myTable">
+								<tr th:each="provider : ${provider_list}">
+									<td th:text="${provider.firstName + ' ' + provider.lastName}"></td>
+									<td th:text="${provider.emailId}"></td>
+									<td th:text="${provider.experience}"></td>
+									<td th:text="${provider.status}"></td>
+									<td th:text="${provider.assign}"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div th:if="${totalPages > 1}" class="cus-button">
+						<ul class="pagination mt-3">
+							<li>
+								<button class="primary-button">	
+									<a th:href="@{/doctor/doctorList(searchKeyword=${searchKeyword}, page=0, pageSize=${pageSize})}">First</a>
+								</button>
+							</li>
+							<li>
+								<button class="primary-button">
+									<a th:href="@{/doctor/doctorList(searchKeyword=${searchKeyword}, page=${currentPage - 1}, pageSize=${pageSize})}"
+										th:if="${currentPage > 0}">Prev</a>
+									<span th:if="${currentPage == 0}" class="disabled">Prev</span>
+								</button>
+							</li>
+							<li class="page-item" th:each="i: ${#numbers.sequence(0, totalPages - 1)}">
+								<button class="primary-button">
+									<a th:href="@{/doctor/doctorList(searchKeyword=${searchKeyword}, page=${i}, pageSize=${pageSize})}"
+										th:if="${currentPage != i}" style="text-decoration: none; color: blue;">[[${i +
+										1}]]</a>
+									<span th:if="${currentPage == i}" class="disabled">[[${i + 1}]]</span>
+								</button>
+							</li>
+							<li>
+								<button class="primary-button">
+									<a th:href="@{/doctor/doctorList(searchKeyword=${searchKeyword}, page=${currentPage + 1}, pageSize=${pageSize})}"
+										th:if="${currentPage < totalPages - 1}">Next</a>
+									<span th:if="${currentPage >= totalPages - 1}" class="disabled">Next</span>
+								</button>
+							</li>
+							<li>
+								<button class="primary-button">
+									<a th:href="@{/doctor/doctorList(searchKeyword=${searchKeyword}, page=${totalPages - 1}, pageSize=${pageSize})}">Last</a>
+								</button>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+		</main>
+		<footer class="mt-auto">
+			<div th:replace="~{common/footer :: footer}"></div>
+		</footer>
+	</div>
+
+
+</body>
+
+</html>

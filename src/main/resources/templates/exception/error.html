@@ -1,0 +1,22 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{common/header :: head}"></div>
+
+<body>
+
+<div class="d-flex flex-column min-vh-100">
+
+<div th:replace="~{common/header :: header}"></div><br><br>
+<h1 style="text-align: center;" th:text="${notFoundMessage}"></h1>
+    <p style="text-align: center;">
+            Click here to go home:
+            <br>
+           
+            <a th:href="@{/}" class="btn btn-primary btn-sm">Go Home</a>
+        </p>
+
+	<footer class="mt-auto">
+			<div th:replace="~{common/footer :: footer}"></div>
+		</footer>
+</div>
+</body>
+</html>

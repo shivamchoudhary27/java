@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{common/header :: head}"></div>
+
+<body>
+	<div class="d-flex flex-column min-vh-100">
+		<header class="p-0">
+			        <img class="login_header" alt="AIIMS Header" th:src="@{/img/login_header.png}" />
+			    </header>
+		<main class="cus-login-page">
+			<div class="t_logo text-center">
+				<img src="../static/img/star_3.png" width="150px" alt="LOGO AIIMS" th:src="@{/img/star_3.png}" />
+			</div>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="cus-img-panel">
+							<img class="l_logo" src="../static/img/logo_1-01.png" th:src="@{/img/logo_1-01.png}"
+								alt="AIIMS">
+							<img class="login_img" src="../static/img/login_bg1.png" th:src="@{/img/login_bg1.png}"
+								alt="AIIMS">
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="p_abs_top">
+							<img src="../static/img/login_nipple.png" th:src="@{/img/login_nipple.png}" alt="AIIMS">
+						</div>
+						<div class="login-form">
+							<h3 class="login-heading">Sign in to get Access</h3>
+							<div  th:if="${failure}" class="alert alert-danger alert-dismissible fade show">
+								<strong>Error!</strong> Invalid username or password!
+								
+								<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+							</div>
+							<form th:action="@{/login}" method="post">
+								<div class="form-group">
+									<input class="form-control mb-3" placeholder="Username" id="username" 
+										name="username" type="text" required="">
+								</div>
+								<div class="form-group">
+									<input class="form-control" placeholder="Password" d="password" name="password"
+										type="text" required="">
+								</div>
+								<div class="buttons">
+									<button type="submit" name="Submit" class="btn btn-danger">Login</button>
+									<a href="#" class="float-end">Forgot your Password?</a>
+								</div>
+							</form>
+						</div>
+						<div class="p_abs_btm">
+							<img src="../static/img/star_2.png" th:src="@{/img/star_2.png}" alt="AIIMS">
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+	</div>
+</body>
+</html>

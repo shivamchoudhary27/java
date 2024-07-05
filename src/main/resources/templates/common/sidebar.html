@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<body>
+
+	<div th:fragment="sidebar">
+		<div class="btnn">
+			<span class="fas fa-bars"></span>
+		</div>
+
+		<nav class="sidebar" style="overflow: scroll;">
+			<a href="" class="logo">
+				<img th:src="@{/img/logo_1-01.png}" width="120px" alt="AIIMS Logo">
+			</a>
+			<ul>
+				<li>
+					<a th:href="@{/}">
+						<i class="fa fa-circle" aria-hidden="true"></i>
+						<span> Dashboard</span>
+					</a>
+				</li>
+				<li>
+					<a th:href="@{/doctor/list}"><!--class="serv-btn">-->
+						<i class="fa fa-circle" aria-hidden="true"></i>
+						<span> Doctor</span>
+					</a>
+					<ul class="serv-show show1">
+						<li>
+							<a th:href="@{/doctor/edit}">
+								<i class="fa fa-circle" aria-hidden="true"></i>
+								<span> Registration</span>
+							</a>
+						</li>
+						<li>
+							<a th:href="@{/doctor/list}">
+								<i class="fa fa-circle" aria-hidden="true"></i>
+								<span> Doctor Lists</span>
+							</a>
+						</li>
+						<li>
+							<a th:href="@{/doctor/assign_hc_provider}">
+								<i class="fa fa-circle" aria-hidden="true"></i>
+								<span> Assign HC Provider</span>
+							</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a th:href="@{/hcprovider/list}"> <!--class="feat-btn">-->
+						<i class="fa fa-circle" aria-hidden="true"></i>
+						<span> Health Care Provider
+					</a>
+					<ul class="feat-show show">
+						<li>
+							<a th:href="@{/hcprovider/registration}">
+								<i class="fa fa-circle" aria-hidden="true"></i>
+								<span> Registration</span>
+							</a>
+						</li>
+						<li>
+							<a th:href="@{/hcprovider/list}">
+								<i class="fa fa-circle" aria-hidden="true"></i>
+								<span> HC Provider Lists</span>
+							</a>
+						</li>
+						<li >
+							<a th:href="@{/available/hcprovider}">
+								<i class="fa fa-circle" aria-hidden="true"></i>
+								<span> Assign Doctor</span>
+							</a>
+						</li>
+						<li>
+							<a th:href="@{/knowledge}">
+								<i class="fa fa-circle" aria-hidden="true"></i>
+								<span> Knowledge Center</span>
+							</a>
+						</li>
+						<li>
+							<a th:href="@{/patients}">
+								<i class="fa fa-circle" aria-hidden="true"></i>
+								<span> Patients</span>
+							</a>
+						</li>
+						<li>
+							<a th:href="@{/user/profile}"
+								class="feat-btn">
+								<i class="fa fa-circle" aria-hidden="true"></i>
+								<span> Profile
+							</a>
+						</li>
+					</ul>
+
+			</ul>
+		</nav>
+	</div>
+
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{common/header :: head}"></div>
+
+
+<body>
+	<div class="d-flex flex-column min-vh-100">
+		<div th:replace="~{common/header :: header}"></div>
+		<main class="cus-drawers">
+			<div class="cus-registration mt-4 mb-4">
+				<div class="container">
+					<form method="post" id="form" name="form" enctype="multipart/form-data">
+						<div class="row">
+							<div class="col-md-6">
+								<div class="row mb-4">
+									<div class="col-sm-3 d-flex align-items-center">
+										<p class="select-box-label">Title</p>
+
+									</div>
+									<div class="col-sm-9">
+										<input class="form-control" placeholder="Title" value="" name="title"
+											type="text" required="">
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-6">
+								<div class="row mb-4">
+									<div class="col-sm-3 d-flex align-items-center">
+										<p class="select-box-label">Select Trimester</p>
+									</div>
+									<div class="col-sm-9">
+										<select class="form-control form-select" name="trim"
+											aria-label="Choose Trimester" required="">
+											<option selected="">Choose Trimester</option>
+											<option value="All" style="text-align:left">All</option>
+											<option value="First" style="text-align:left">First</option>
+											<option value="Second" style="text-align:left">Second</option>
+											<option value="Third" style="text-align:left">Third</option>
+											<option value="Birth" style="text-align:left">Birth</option>
+										</select>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-6">
+								<div class="row mb-4">
+									<div class="col-sm-3 d-flex align-items-center">
+										<p class="select-box-label">Status</p>
+									</div>
+									<div class="col-sm-9">
+										<select class="form-control form-select" name="status"
+											aria-label="Select Status" required="">
+											<option selected="">Select Status</option>
+											<option value="1" style="text-align:left">Active</option>
+											<option value="0" style="text-align:left">Inactive</option>
+
+										</select>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-6">
+								<div class="row mb-4">
+									<div class="col-sm-3 d-flex align-items-center">
+										<p class="select-box-label">Type</p>
+									</div>
+									<div class="col-sm-9">
+										<select class="form-control form-select" name="type" onchange="submitted()"
+											aria-label="Choose Type" required="">
+											<option selected="">Select Type</option>
+											<option value="Video" style="text-align:left">Video</option>
+											<option value="Link" style="text-align:left">Link</option>
+											<option value="Audio" style="text-align:left">Audio</option>
+											<option value="Document" style="text-align:left">Document</option>
+
+										</select>
+									</div>
+								</div>
+							</div>
+
+						</div>
+						<div class="buttons text-center">
+							<button class="btn btn-danger" type="submit" name="Submit">Add</button>
+						</div>
+					</form>
+
+					<div class="search-box">
+						<input type="text" id="search_input_all" onkeyup="FilterkeyWord_all_table()"
+							placeholder="Search.." class="form-control">
+						<i class="fa fa-search search-icon" aria-hidden="true"></i>
+					</div>
+
+					<div class="table-responsive cus-table">
+						<table class="table table-dark-header table-striped" id="table-id">
+							<thead class="">
+								<tr>
+									<th>Title</th>
+									<th>Category</th>
+									<th>Status</th>
+									<th>Delete</th>
+								</tr>
+							</thead>
+							<tbody id="myTable">
+							</tbody>
+						</table>
+					</div>
+					<ul class="pagination mb-3">
+						<ul class="pagination">
+							<li><button class="primary-button">
+									<a href="?pageno=1">First</a></button>
+							</li>
+							<li><button class="primary-button disabled">
+									<a href="#">Prev</a></button>
+							</li>
+							<li><button class="primary-button disabled">
+									<a href="#">Next</a></button>
+							</li>
+							<li><button class="primary-button">
+									<a href="?pageno=0">Last</a></button>
+							</li>
+						</ul>
+					</ul>
+				</div>
+			</div>
+
+		</main>
+		<footer class="mt-auto">
+			<div th:include="common/footer :: footer"></div>
+		</footer>
+	</div>
+
+
+
+
+</body>
+
+</html>

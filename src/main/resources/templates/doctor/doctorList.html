@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{common/header :: head}"></div>
+
+<body>
+
+	<div class="d-flex flex-column min-vh-100">
+		<div th:replace="~{common/header :: header}"></div>
+		<main class="cus-drawers">
+			<div class="main-content mt-4 mb-4">
+				<div class="container">
+					<div class="alert alert-primary" role="alert"
+						th:if="${updateSuccess}">Update successful!</div>
+					<!-- Alert -->
+					<div class="alert alert-danger" role="alert"
+						th:if="${deleteSuccess}">Delete successful!</div>
+						<div class="search-box">
+							<form th:action="@{/doctor/list}" method="get">
+								<input type="text" id="search_input_all" name="searchKeyword"
+									placeholder="Search.." class="form-control"
+									th:value="${searchKeyword}"> <i
+									class="fa fa-search search-icon" aria-hidden="true"></i>
+								<!--</button>-->
+							</form>
+						</div>
+	                <div class="table-responsive cus-table">
+						<table class="table table-dark-header table-striped" id="table-id">
+							<thead class="">	
+								<tr>
+									<th>Name</th>
+									<th>Email ID</th>
+									<th>Mobile No</th>
+									<th>Date of Birth</th>
+									<th>Status</th>
+									<th>Address</th>
+									<th>Edit</th>
+									<th>Delete</th>
+								</tr>
+							</thead>
+							<tbody id="myTable">
+								<tr th:each="doctor : ${doctorList}">
+									<td th:text="${doctor.firstName + ' ' + doctor.lastName}"></td>
+									<td th:text="${doctor.emailId}"></td>
+									<td th:text="${doctor.mobileNo}"></td>
+									<td th:text="${doctor.dateOfBirth}"></td>
+									<td th:text="${doctor.status}"></td>
+									<td th:text="${doctor.address}"></td>
+									<td>
+										<form
+											th:action="@{/doctor/updateDoctor/{doctorId}(doctorId=${doctor.doctorId})}"
+											method="get">
+											<input type="hidden" name="doctorId" th:value="${doctor.doctorId}" />
+											<button type="submit" class="btn btn-primary"
+												style="background-color: purple;">
+												<i class="fas fa-edit"></i>
+											</button>
+										</form>
+									</td>
+									<td>
+  <form th:action="@{/doctor/delete/{doctorId}(doctorId=${doctor.doctorId})}" method="get">
+    <input type="hidden" name="_method" value="DELETE" />
+    <button class="btn btn-danger btn-delete" data-bs-toggle="modal" data-bs-target="#confirmModal" onclick="return false;">
+      <i class="fas fa-trash"></i>
+    </button>
+      <div class="modal" tabindex="-1" id="confirmModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm Delete</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="confirmText">
+                    Are you sure you want to delete this doctor?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+  </form>
+</td>
+
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div th:if="${totalPages > 1}" class="cus-button">
+						<ul class="pagination mt-3">
+							<li>
+								<button class="primary-button">	
+									<a th:href="@{/doctor/list(searchKeyword=${searchKeyword}, page=0, pageSize=${pageSize})}">First</a>
+								</button>
+							</li>
+							<li>
+								<button class="primary-button">
+									<a th:href="@{/doctor/list(searchKeyword=${searchKeyword}, page=${currentPage - 1}, pageSize=${pageSize})}"
+										th:if="${currentPage > 0}">Prev</a>
+									<span th:if="${currentPage == 0}" class="disabled">Prev</span>
+								</button>
+							</li>
+							<li class="page-item" th:each="i: ${#numbers.sequence(0, totalPages - 1)}">
+								<button class="primary-button">
+									<a th:href="@{/doctor/list(searchKeyword=${searchKeyword}, page=${i}, pageSize=${pageSize})}"
+										th:if="${currentPage != i}" style="text-decoration: none; color: blue;">[[${i +
+										1}]]</a>
+									<span th:if="${currentPage == i}" class="disabled">[[${i + 1}]]</span>
+								</button>
+							</li>
+							<li>
+								<button class="primary-button">
+									<a th:href="@{/doctor/list(searchKeyword=${searchKeyword}, page=${currentPage + 1}, pageSize=${pageSize})}"
+										th:if="${currentPage < totalPages - 1}">Next</a>
+									<span th:if="${currentPage >= totalPages - 1}" class="disabled">Next</span>
+								</button>
+							</li>
+							<li>
+								<button class="primary-button">
+									<a th:href="@{/doctor/list(searchKeyword=${searchKeyword}, page=${totalPages - 1}, pageSize=${pageSize})}">Last</a>
+								</button>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			
+	   		
+		</main>
+		<footer class="mt-auto">
+			<div th:replace="~{common/footer :: footer}"></div>
+		</footer>
+	</div>
+
+
+	
+	<script th:if="${deleteSuccess} or ${updateSuccess}">
+		
+		buttonsTimeout()
+	</script>
+	
+</body>
+
+</html>
+

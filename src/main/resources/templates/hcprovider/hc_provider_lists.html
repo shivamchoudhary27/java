@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{common/header :: head}"></div>
+<body>
+
+	<div class="d-flex flex-column min-vh-100">
+		<div th:replace="~{common/header :: header}"></div>
+		<main class="cus-drawers">
+			<div class="main-content mt-4 mb-4">
+
+				<div class="container">
+					<!-- Alert -->
+					<div class="alert alert-danger" role="alert" th:if="${deleteSuccess}">Delete successful!</div>
+					<!-- Alert -->
+					<div class="alert alert-primary" role="alert" th:if="${updateSuccess}">Update successful!</div>
+					<div class="search-box">
+						<form th:action="@{/hcprovider/list}" method="get">
+							<input type="text" id="search_input_all" name="searchKeyword" placeholder="Search.."
+								class="form-control" th:value="${searchKeyword}">
+							<!--	<button type="submit" class="p-viewer">-->
+							<i class="fa fa-search search-icon" aria-hidden="true"></i>
+							<!--</button>-->
+						</form>
+					</div>
+					<div class="table-responsive cus-table">	
+						<table class="table table-dark-header table-striped" id="table-id">
+							<thead class="">
+								<tr>						
+									<th>Name</th>
+									<th>Email ID</th>
+									<th>Mobile No</th>
+									<th>Date of Birth</th>
+									<th>Status</th>
+									<th>Address</th>
+									<th>Edit</th>
+									<th>Delete</th>
+								</tr>
+							</thead>
+							<tbody id="myTable">
+								<tr th:each="provider : ${provider_list}">					
+									<td th:text="${provider.firstName + ' ' + provider.lastName}"></td>
+									<td th:text="${provider.emailId}"></td>
+									<td th:text="${provider.mobileNumber}"></td>
+									<td th:text="${provider.dateOfBirth}"></td>
+									<td th:text="${provider.status}"></td>
+									<td th:text="${provider.address}"></td>
+									<td>
+										<form th:action="@{/hcprovider/update/{id}(id=${provider.id})}" method="get">
+											<input type="hidden" name="id" th:value="${provider.id}" />
+											<button type="submit" class="btn btn-secondary">
+												<i class="fas fa-edit"></i>
+											</button>
+										</form>
+									</td>
+									<td>
+										<form th:action="@{/delete-provider}" method="post">
+											<input type="hidden" name="id" th:value="${provider.id}" />
+											<!-- delete button -->
+											<button type="button" class="btn btn-danger" data-toggle="modal"
+												data-target="#myModal">
+												<i class="fas fa-trash"></i>
+											</button>
+	
+											<!-- The Modal -->
+											<div class="modal" id="myModal">
+												<div class="modal-dialog">
+													<div class="modal-content">
+														<!-- Modal Header -->
+														<div class="modal-header">
+															<h4 class="modal-title" style="color:red">Confirm Delete!</h4>
+															<button type="button" class="close"
+																data-dismiss="modal">&times;</button>
+														</div>
+														<!-- Modal body -->
+														<div class="modal-body">
+															<p style="color: red; font-size: 20px;">Are you sure you want to
+																delete this record ?</p>
+														</div>
+														<!-- Modal footer -->
+														<div class="modal-footer">
+															<button type="submit" class="btn btn-danger">Ok</button>
+															<button type="button" class="btn btn-secondary" data-dismiss="modal"
+																>Cancel</button>
+														</div>
+													</div>
+												</div>
+											</div>
+										</form>
+									</td>
+	
+								</tr>
+							</tbody>
+						</table>
+					</div>
+
+					<div th:if="${totalPages > 1}" class="cus-button">
+						<ul class="pagination mt-3">
+							<li>
+								<button class="primary-button">
+									<a th:href="@{/hcprovider/list(searchKeyword=${searchKeyword}, page=0, pageSize=${pageSize})}">First</a>
+								</button>
+							</li>
+							<li>
+								<button class="primary-button">
+									<a th:href="@{/hcprovider/list(searchKeyword=${searchKeyword}, page=${currentPage - 1}, pageSize=${pageSize})}"
+										th:if="${currentPage > 0}" style="text-decoration: none; color: white;">Prev</a>
+									<span th:if="${currentPage == 0}" class="disabled">Prev</span>
+								</button>
+							</li>
+							<li class="page-item" th:each="i: ${#numbers.sequence(0, totalPages - 1)}">
+								<button class="primary-button">
+									<a th:href="@{/hcprovider/list(searchKeyword=${searchKeyword}, page=${i}, pageSize=${pageSize})}"
+										th:if="${currentPage != i}" style="text-decoration: none; color: blue;">[[${i +
+										1}]]</a>
+									<span th:if="${currentPage == i}" class="disabled">[[${i + 1}]]</span>
+								</button>
+							</li>
+							<li>
+								<button class="primary-button">
+									<a th:href="@{/hcprovider/list(searchKeyword=${searchKeyword}, page=${currentPage + 1}, pageSize=${pageSize})}"
+										th:if="${currentPage < totalPages - 1}">Next</a>
+									<span th:if="${currentPage >= totalPages - 1}" class="disabled">Next</span>
+								</button>
+							</li>
+							<li>
+								<button class="primary-button">
+									<a th:href="@{/hcprovider/list(searchKeyword=${searchKeyword}, page=${totalPages - 1}, pageSize=${pageSize})}">Last</a>
+								</button>
+							</li>
+						</ul>
+				</div>
+			</div>
+		</main>
+
+        <footer class="mt-auto">
+			<div th:replace="~{common/footer :: footer}"></div>
+	    </footer>
+	</div>
+	
+
+	<script th:if="${deleteSuccess} or ${updateSuccess}">
+		buttonsTimeout()
+	</script>
+</body>
+</html>

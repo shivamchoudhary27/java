@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:replace="~{common/header :: head}">
+</div>
+
+<body>
+	<div class="d-flex flex-column min-vh-100">
+		<div th:replace="~{common/header :: header}"></div>
+		<main class="cus-drawers">
+			<div class="cus-registration mt-4 mb-4">
+				<div class="container">
+					<div class="">
+						<form method="post" th:object="${dto}" th:action="@{/registration_success}">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="row mb-4">
+										<div class="col-sm-3 d-flex align-items-center">
+											<p class="select-box-label">First Name</p>
+										</div>
+										<div class="col-sm-9">
+											<input class="form-control" placeholder="First Name" name="firstName"
+												type="text" required>
+										</div>
+									</div>
+								</div>
+	
+								<div class="col-md-6">
+									<div class="row mb-4">
+										<div class="col-sm-3 d-flex align-items-center">
+											<p class="select-box-label">Last Name</p>
+										</div>
+										<div class="col-sm-9">
+											<input class="form-control" placeholder="Last Name" name="lastName"
+												type="text" required>
+										</div>
+									</div>
+								</div>
+							</div>
+	
+							<div class="row">
+								<div class="col-md-6">
+									<div class="row mb-4">
+										<div class="col-sm-3 d-flex align-items-center">
+											<p class="select-box-label">Password</p>
+										</div>
+										<div class="col-sm-9 cus-eye">
+											<input class="form-control" placeholder="Password" name="password"
+												id="password1" type="password" minlength="8" required> <span
+												class="p-viewer" onclick="togglePasswordVisibility()"> <i class="fa fa-eye"
+													aria-hidden="false"></i></span>
+										</div>
+									</div>
+								</div>
+	
+								<div class="col-md-6">
+									<div class="row mb-4">
+										<div class="col-sm-3 d-flex align-items-center">
+											<p class="select-box-label">Date of Birth</p>
+										</div>
+										<div class="col-sm-9">
+											<!-- <input class="form-control mb-0" placeholder="Date of Birth" name="dateOfBirth" type="date" required> -->
+											<input class="form-control" placeholder="Date of Birth" name="dateOfBirth"
+												type="date" required>
+	
+										</div>
+									</div>
+								</div>
+							</div>
+	
+							<div class="row">
+								<div class="col-md-6">
+									<div class="row mb-4">
+										<div class="col-sm-3 d-flex align-items-center">
+											<p class="select-box-label">Mobile Number</p>
+										</div>
+										<div class="col-sm-9">
+											<input class="form-control" pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
+												placeholder="Mobile Number" name="mobileNo" type="tel" required>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="row mb-4">
+										<div class="col-sm-3 d-flex align-items-center">
+											<p class="select-box-label">Email ID</p>
+										</div>
+										<div class="col-sm-9">
+											<input class="form-control" placeholder="Email ID" name="emailId"
+												type="email" required>
+										</div>
+									</div>
+								</div>
+							</div>
+	
+							<div class="row">
+								<div class="col-md-6">
+									<div class="row mb-4">
+										<div class="col-sm-3 d-flex align-items-center">
+											<p class="select-box-label">Status</p>
+										</div>
+										<div class="col-sm-9">
+											<select class="form-control form-select" name="status"
+												aria-label="Select Status" required>
+												<option selected>Select Status</option>
+												<option value="1">Active</option>
+												<option value="0">Inactive</option>
+											</select>
+										</div>
+									</div>
+								</div>
+	
+								<div class="col-md-6">
+									<div class="row mb-4">
+										<div class="col-sm-3 d-flex align-items-center">
+											<p class="select-box-label">Official Address</p>
+										</div>
+										<div class="col-sm-9">
+											<input class="form-control" placeholder="Official Address" name="address"
+												type="text" required>
+										</div>
+									</div>
+								</div>
+							</div>
+	
+							<div class="buttons text-center">
+								<button class="btn btn-danger" type="submit" name="Submit">
+									<strong>Register</strong>
+								</button>
+							</div>
+	
+						</form>
+					</div>
+				</div>
+			</div>
+		</main>
+		<footer class="mt-auto">
+				<div th:replace="~{common/footer :: footer}"></div>
+		</footer>
+	</div>
+
+	<script>
+		function togglePasswordVisibility() {
+			var passwordInput = document.getElementById("password1");
+			var passwordVisibilityIcon = document.querySelector(".p-viewer i");
+
+			if (passwordInput.type === "password") {
+				passwordInput.type = "text";
+				passwordVisibilityIcon.classList.remove("fa-eye");
+				passwordVisibilityIcon.classList.add("fa-eye-slash");
+			} else {
+				passwordInput.type = "password";
+				passwordVisibilityIcon.classList.remove("fa-eye-slash");
+				passwordVisibilityIcon.classList.add("fa-eye");
+			}
+		}
+
+		// Password validation function
+		function validatePassword() {
+			var passwordInput = document.getElementById("password1");
+			var password = passwordInput.value;
+
+			var regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;
+
+			if (!regex.test(password)) {
+				passwordInput
+					.setCustomValidity("Password must be at least 8 characters long and contain at least one capital letter, one special character, and one digit.");
+			} else {
+				passwordInput.setCustomValidity("");
+			}
+		}
+
+		// Add event listener to password input for validation on input change
+		var passwordInput = document.getElementById("password1");
+		passwordInput.addEventListener("input", validatePassword);
+	</script>
+
+</body>
+</html>

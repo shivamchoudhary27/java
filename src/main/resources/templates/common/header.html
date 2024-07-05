@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+     <title th:text="${title}"> </title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link  rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/css/all.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/hc_provider_lists.css}">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+    <script th:src="@{/js/jquery-3.7.0.min.js}"></script>
+     <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</head>
+
+<body>
+<header th:fragment="header" class="abs_header">
+    <div  th:replace="~{common/sidebar :: sidebar}"></div>
+   <div class="header-title"><span th:text="${header}"></span></div>
+    <div th:fragment="header1" class="abs_header float-end login_header">
+        <h5 class="color-white" th:text="${#authentication.principal.username}"></h5>
+        <div class="circle dropdown">
+            <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="../../static/img/profile.png" th:src="@{/img/profile.png}" alt="" />
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a class="dropdown-item" th:href="@{/user/profile}"  >Profile</a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="#" th:href="@{/logout}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+</header>  
+</body>      
+</html>
