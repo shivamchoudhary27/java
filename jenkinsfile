@@ -1,0 +1,26 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('pull') {
+            steps {
+                sh 'git pull origin main'
+            }
+        }
+        stage ('build the code')
+            steps{
+                sh '''
+                mvn clean
+                mvn package
+                '''
+            }    
+        stage('deploy to remote server') {
+            steps {
+                sh '''
+                scp /var/lib/jenkins/workspace/javajob/*.jar ubuntu@52.66.243.6:
+                ssh ubuntu@52.66.243.6 "sudo mv /home/ubuntu/*.jar /var/www/html/ && sudo systemctl restart apache2"
+                '''
+            }
+        }
+    }
+}
